@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1e6b5f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="房租追蹤器">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>房租追蹤器</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/app-icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="app-header" aria-labelledby="app-title">
+        <div>
+          <p class="eyebrow">Rent tracker</p>
+          <h1 id="app-title">房租追蹤器</h1>
+        </div>
+        <div class="month-controls" aria-label="月份切換">
+          <button class="icon-button" id="prev-month" type="button" aria-label="上一個月">‹</button>
+          <div class="current-month" id="current-month" aria-live="polite"></div>
+          <button class="icon-button" id="next-month" type="button" aria-label="下一個月">›</button>
+        </div>
+      </section>
+
+      <section class="control-strip" aria-label="基本設定">
+        <label class="field">
+          <span>每日租金</span>
+          <div class="money-input">
+            <span aria-hidden="true">$</span>
+            <input id="daily-rate" type="number" inputmode="decimal" min="0" step="1" value="0">
+          </div>
+        </label>
+
+        <label class="field">
+          <span>付款狀態</span>
+          <select id="payment-status">
+            <option value="unpaid">未付款</option>
+            <option value="partial">部分付款</option>
+            <option value="paid">已付款</option>
+          </select>
+        </label>
+
+        <label class="field field-wide">
+          <span>備註</span>
+          <input id="month-note" type="text" placeholder="例如：已轉帳、等對方確認">
+        </label>
+      </section>
+
+      <section class="summary-grid" aria-label="當月統計">
+        <article class="summary-card">
+          <span>入住天數</span>
+          <strong id="stay-days">0 天</strong>
+        </article>
+        <article class="summary-card">
+          <span>當月租金</span>
+          <strong id="month-total">$0</strong>
+        </article>
+        <article class="summary-card">
+          <span>平均週入住</span>
+          <strong id="weekly-average">0 天</strong>
+        </article>
+      </section>
+
+      <section class="calendar-panel" aria-labelledby="calendar-title">
+        <div class="calendar-heading">
+          <h2 id="calendar-title">入住日期</h2>
+          <div class="calendar-actions">
+            <button class="secondary-button" id="select-weekdays" type="button">選取平日</button>
+            <button class="secondary-button" id="clear-month" type="button">清空本月</button>
+          </div>
+        </div>
+        <div class="weekday-row" aria-hidden="true">
+          <span>日</span>
+          <span>一</span>
+          <span>二</span>
+          <span>三</span>
+          <span>四</span>
+          <span>五</span>
+          <span>六</span>
+        </div>
+        <div class="calendar-grid" id="calendar-grid" aria-label="月曆日期"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
