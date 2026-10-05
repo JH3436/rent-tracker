@@ -124,9 +124,7 @@ h2 {
 
 .icon-button:focus-visible,
 .secondary-button:focus-visible,
-.day-button:focus-visible,
-.field input:focus,
-.field select:focus {
+.day-button:focus-visible {
   outline: 3px solid rgba(47, 129, 247, 0.35);
   outline-offset: 2px;
 }
@@ -141,11 +139,16 @@ h2 {
 }
 
 .control-strip {
-  display: grid;
-  grid-template-columns: minmax(180px, 220px) minmax(160px, 200px) 1fr;
+  display: flex;
+  align-items: center;
   gap: 16px;
   padding: 18px;
   margin-bottom: 16px;
+}
+
+.control-strip .field {
+  width: 100%;
+  max-width: 260px;
 }
 
 .field {
@@ -156,8 +159,7 @@ h2 {
   font-weight: 700;
 }
 
-.field input,
-.field select {
+.field input {
   width: 100%;
   min-height: 46px;
   border: 1px solid var(--border);
@@ -168,31 +170,60 @@ h2 {
   padding: 0 12px;
 }
 
+.field input:focus {
+  outline: 3px solid rgba(47, 129, 247, 0.35);
+  outline-offset: 2px;
+}
+
 .field input::placeholder {
   color: #6e7681;
 }
 
 .money-input {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
   align-items: center;
   min-height: 46px;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--surface-strong);
-  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  cursor: text;
 }
 
-.money-input span {
-  padding-left: 12px;
+.money-input:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(47, 129, 247, 0.35);
+}
+
+.money-prefix {
+  padding-left: 14px;
+  padding-right: 4px;
   color: var(--muted);
   font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
 }
 
 .money-input input {
+  flex: 1;
+  min-width: 0;
   min-height: 44px;
   border: 0;
-  border-radius: 0;
+  outline: none;
+  background: transparent;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
+  padding: 0 14px 0 0;
+}
+
+.money-input input:focus,
+.money-input input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .summary-grid {
@@ -312,8 +343,8 @@ h2 {
     grid-template-columns: 44px 1fr 44px;
   }
 
-  .control-strip {
-    grid-template-columns: 1fr;
+  .control-strip .field {
+    max-width: 100%;
   }
 
   .summary-grid {

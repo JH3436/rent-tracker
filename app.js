@@ -12,8 +12,7 @@ const els = {
   prevMonth: document.getElementById("prev-month"),
   nextMonth: document.getElementById("next-month"),
   dailyRate: document.getElementById("daily-rate"),
-  paymentStatus: document.getElementById("payment-status"),
-  monthNote: document.getElementById("month-note"),
+  moneyInputWrap: document.getElementById("money-input-wrap"),
   stayDays: document.getElementById("stay-days"),
   monthTotal: document.getElementById("month-total"),
   weeklyAverage: document.getElementById("weekly-average"),
@@ -59,9 +58,7 @@ function getMonthData() {
 
   if (!state.months[key]) {
     state.months[key] = {
-      selectedDays: [],
-      paymentStatus: "unpaid",
-      note: ""
+      selectedDays: []
     };
   }
 
@@ -114,9 +111,7 @@ function renderCalendar() {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
   els.currentMonth.textContent = formatMonthLabel();
-  els.dailyRate.value = state.dailyRate || "";
-  els.paymentStatus.value = monthData.paymentStatus;
-  els.monthNote.value = monthData.note;
+  els.dailyRate.value = String(state.dailyRate);
   els.calendarGrid.innerHTML = "";
 
   for (let i = 0; i < firstWeekday; i += 1) {
@@ -208,20 +203,35 @@ function bindEvents() {
   els.selectWeekdays.addEventListener("click", selectWeekdays);
   els.clearMonth.addEventListener("click", clearMonth);
 
+  if (els.moneyInputWrap) {
+    els.moneyInputWrap.addEventListener("click", () => {
+      els.dailyRate.focus();
+    });
+  }
+
+  els.dailyRate.addEventListener("focus", () => {
+    els.dailyRate.select();
+  });
+
   els.dailyRate.addEventListener("input", (event) => {
-    state.dailyRate = Math.max(0, Number(event.target.value) || 0);
+    const raw = event.target.value.replace(/\D/g, "");
+    if (event.target.value !== raw) {
+      event.target.value = raw;
+    }
+    state.dailyRate = raw ? Math.max(0, parseInt(raw, 10) || 0) : 0;
     saveState();
     updateSummary();
   });
 
-  els.paymentStatus.addEventListener("change", (event) => {
-    getMonthData().paymentStatus = event.target.value;
-    saveState();
-  });
-
-  els.monthNote.addEventListener("input", (event) => {
-    getMonthData().note = event.target.value;
-    saveState();
+  els.dailyRate.addEventListener("blur", (event) => {
+    if (!event.target.value) {
+      event.target.value = "0";
+      state.dailyRate = 0;
+      saveState();
+      updateSummary();
+    } else {
+      event.target.value = String(state.dailyRate);
+    }
   });
 }
 

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#0d1117">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="房租追蹤器">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -28,26 +29,20 @@
       </section>
 
       <section class="control-strip" aria-label="基本設定">
-        <label class="field">
+        <label class="field" for="daily-rate">
           <span>每日租金</span>
-          <div class="money-input">
-            <span aria-hidden="true">$</span>
-            <input id="daily-rate" type="number" inputmode="decimal" min="0" step="1" value="0">
+          <div class="money-input" id="money-input-wrap">
+            <span class="money-prefix" aria-hidden="true">$</span>
+            <input
+              id="daily-rate"
+              type="text"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              autocomplete="off"
+              value="0"
+              aria-label="每日租金"
+            >
           </div>
-        </label>
-
-        <label class="field">
-          <span>付款狀態</span>
-          <select id="payment-status">
-            <option value="unpaid">未付款</option>
-            <option value="partial">部分付款</option>
-            <option value="paid">已付款</option>
-          </select>
-        </label>
-
-        <label class="field field-wide">
-          <span>備註</span>
-          <input id="month-note" type="text" placeholder="例如：已轉帳、等對方確認">
         </label>
       </section>
 
