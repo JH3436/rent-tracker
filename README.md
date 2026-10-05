@@ -2,6 +2,8 @@
 
 這是一個可以放到手機主畫面的靜態 PWA 小工具。資料會儲存在目前裝置的瀏覽器中。
 
+已部署網址：https://jh3436.github.io/rent-tracker/
+
 ## 手機使用方式
 
 把整個資料夾部署到支援 HTTPS 的靜態網站，例如 GitHub Pages、Netlify 或 Vercel。
