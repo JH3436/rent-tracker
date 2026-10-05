@@ -1,4 +1,4 @@
-const CACHE_NAME = "rent-tracker-v1";
+const CACHE_NAME = "rent-tracker-v2";
 const ASSETS = [
   "./",
   "./index.html",
